@@ -1,10 +1,18 @@
 version: 0.2
 
+env:
+  variables:
+    S3_BUCKET: dm-codebuild-bucket-1
+
 phases:
-    install:
-        commands:
-            - ls -l
+  make_bucket:
+    commands: aws s3 mb s3://${S3_BUCKET}
+  build:
+    commands:
+      - echo "Starting SAM packaging `date` in `pwd`"
+      - aws cloudformation package --template-file template.yaml --s3-bucket $S3_BUCKET --output-template-file packaged.yaml
 
 artifacts:
-    files:
-        - buildspec.yml
+  files:
+    - packaged.yaml
+  discard-paths: yes

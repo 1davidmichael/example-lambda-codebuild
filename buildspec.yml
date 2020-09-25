@@ -1,12 +1,6 @@
 version: 0.2
 
-env:
-  variables:
-    S3_BUCKET: dm-codebuild-bucket-1
-
 phases:
-  pre_build:
-    commands: aws s3 mb s3://${S3_BUCKET}
   build:
     commands:
       - echo "Starting SAM packaging `date` in `pwd`"

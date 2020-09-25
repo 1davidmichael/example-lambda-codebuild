@@ -5,7 +5,7 @@ env:
     S3_BUCKET: dm-codebuild-bucket-1
 
 phases:
-  make_bucket:
+  pre_build:
     commands: aws s3 mb s3://${S3_BUCKET}
   build:
     commands:
